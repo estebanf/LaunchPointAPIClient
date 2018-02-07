@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-xs-2">
+    <div class="btn-group-vertical" role="group" aria-label="...">
+      <button type="button" class="btn btn-danger" ng-click="exceptions.getData('getActiveTechnical')">Technical active</button>
+      <button type="button" class="btn btn-danger" ng-click="exceptions.getData('getActiveFunctional')">Functional active</button>
+      <button type="button" class="btn btn-info" ng-click="exceptions.getData('getResolvedTechnical')">Technical resolved</button>
+      <button type="button" class="btn btn-info" ng-click="exceptions.getData('getResolvedFunctional')">Functional resolved</button>
+    </div>
+  </div>
+  <div class="col-xs-10">
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>environmentid</th>
+          <th>clientid</th>
+          <th>caseid</th>
+          <th>step</th>
+          <th>failcount</th>
+          <th>validation</th>
+          <th>integration</th>
+          <th>message</th>
+          <th/>
+        </tr>
+        <tbody>
+          <tr ng-repeat="item in exceptions.data">
+            <td>{{item.id}}</td>
+            <td>{{item.environmentid}}</td>
+            <td>{{item.clientid}}</td>
+            <td>{{item.caseid}}</td>
+            <td>{{item.step}}</td>
+            <td>{{item.failcount}}</td>
+            <td>{{item.validation}}</td>
+            <td>{{item.integration}}</td>
+            <td>{{item.message}}</td>
+            <td>
+              <button type="button" class="btn btn-default" ng-if="item.technicalerror && !item.resolved" ng-click="exceptions.resolve(item)">
+                <i class="fa fa-wrench"></i>
+              </button>
+          </td>
+          </tr>
+        </tbody>
+      </thead>
+    </table>
+  </div>
+</div>

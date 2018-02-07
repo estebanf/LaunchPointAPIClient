@@ -1,0 +1,172 @@
+<div class="row">
+  <div class="col-lg-2">
+    <div class="form-group">
+      <label>ClientId</label>
+      <input type="number" class="form-control" id="ClientId" placeholder="Score" ng-model="rule.data.ClientId">
+    </div>
+    <div class="form-group">
+      <label>Score</label>
+      <input type="number" class="form-control" id="Score" placeholder="Score" ng-model="rule.data.Score">
+    </div>
+    <div class="form-group">
+      <label>ISOIndicator:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.ISOIndicator">
+        <option>0</option>
+        <option>1</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>BenefitAmount</label>
+      <input type="number" class="form-control" id="BenefitAmount" placeholder="BenefitAmount" ng-model="rule.data.BenefitAmount">
+    </div>
+    <div class="form-group">
+      <label>FundingSource:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.FundingSource">
+        <option>Medicare</option>
+        <option>Medicaid</option>
+        <option>Other</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-lg-2">
+    <div class="form-group">
+      <label>CaseStatus:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.CaseStatus">
+        <option>Investigation</option>
+        <option>CWOC</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>CaseSource:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.CaseSource">
+        <option>User</option>
+        <option>System</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>IQResponseReceived:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.IQResponseReceived">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>BelowCostEffectivePursuit:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.BelowCostEffectivePursuit">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>IQReturnMail:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.IQReturnMail">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-lg-2">
+    <div class="form-group">
+      <label>IQHold:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.IQHold">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>ISOSent:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.ISOSent">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>vip:&nbsp;</label>
+      <select class="form-control" ng-model="rule.data.vip">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>IQLetters</label>
+      <input type="number" class="form-control" id="IQLetters" placeholder="IQLetters" ng-model="rule.data.IQLetters">
+    </div>
+  </div>
+  <div class="col-lg-2">
+    <div class="form-group">
+      <label>daysSinceAccident</label>
+      <input type="number" class="form-control" id="daysSinceAccident" placeholder="daysSinceAccident" ng-model="rule.data.daysSinceAccident">
+    </div>
+    <div class="form-group">
+      <label>BelowCostEffectivePursuitDueDatePassed</label>
+      <select class="form-control" ng-model="rule.data.BelowCostEffectivePursuitDueDatePassed">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>daysSinceLastIQLetter</label>
+      <input type="number" class="form-control" id="daysSinceLastIQLetter" placeholder="daysSinceLastIQLetter" ng-model="rule.data.daysSinceLastIQLetter">
+    </div>
+    <button type="button" class="btn btn-default" ng-click="rule.testRule()">Test</button>
+  </div>
+  <div class="col-lg-4">
+    <div class="list-group">
+      <a href="#" class="list-group-item active">
+        <h4 class="list-group-item-heading">Matched rules</h4>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">discriminationRuleId</h5>
+        <p class="list-group-item-text">{{ rule.results.discriminationRuleId }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">iqRuleId</h5>
+        <p class="list-group-item-text">{{ rule.results.iqRuleId }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">isoRuleId</h5>
+        <p class="list-group-item-text">{{ rule.results.isoRuleId }}</p>
+      </a>
+      <a href="#" class="list-group-item active">
+        <h4 class="list-group-item-heading">Case identification</h4>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">iq</h5>
+        <p class="list-group-item-text">{{ rule.results.iq }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">iso</h5>
+        <p class="list-group-item-text">{{ rule.results.iso }}</p>
+      </a>
+      <a href="#" class="list-group-item active">
+        <h4 class="list-group-item-heading">Actions</h4>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">sendIQ</h5>
+        <p class="list-group-item-text">{{ rule.results.sendIQ }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">sendIso</h5>
+        <p class="list-group-item-text">{{ rule.results.sendIso }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">closeCase</h5>
+        <p class="list-group-item-text">{{ rule.results.closeCase }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">iqHold</h5>
+        <p class="list-group-item-text">{{ rule.results.iqHold }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">stop</h5>
+        <p class="list-group-item-text">{{ rule.results.stop }}</p>
+      </a>
+      <a href="#" class="list-group-item">
+        <h5 class="list-group-item-heading">doNothing</h5>
+        <p class="list-group-item-text">{{ rule.results.doNothing }}</p>
+      </a>
+    </div>
+  </div>
+
+</div>

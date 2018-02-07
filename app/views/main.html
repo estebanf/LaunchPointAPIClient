@@ -1,0 +1,252 @@
+<div class="row">
+  <div class="col-lg-12">
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="CaseId">ClientId</label>
+        <input type="text" class="form-control" id="CaseId" placeholder="CaseId" ng-model="main.search.CaseId">
+      </div>
+      <div class="form-group">
+        <label for="ClientId">ClientId</label>
+        <input type="text" class="form-control" id="ClientId" placeholder="ClientId" ng-model="main.search.ClientId">
+      </div>
+      <div class="form-group">
+        <label for="EnvironmentId">EnvironmentId</label>
+        <input type="text" class="form-control" id="EnvironmentId" placeholder="EnvironmentId" ng-model="main.search.EnvironmentId">
+      </div>
+      <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="main.search.active"> Active
+          </label>
+        </div>
+      <button type="button" class="btn btn-default" ng-click="main.find()">Find</button>
+      <button type="button" class="btn btn-default" ng-click="main.clear()">Clear</button>
+    </form>
+    <hr>
+  </div>
+</div>
+<div class="row" ng-if="main.cases.length > 0">
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-lg-12">
+        <h4>Cases</h4>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>CaseId</th>
+              <th>ClientId</th>
+              <th>EnvironmentId</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="lpcase in main.cases">
+              <td>{{ lpcase.caseid}}</td>
+              <td>{{ lpcase.clientid}}</td>
+              <td>{{ lpcase.environmentid}}</td>
+              <td><button type="button" class="btn btn-default"  ng-click="main.viewObject(lpcase)"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+              <td><button type="button" class="btn btn-default" ng-click="main.getProcesses(lpcase)"><i class="fa fa-cogs" aria-hidden="true"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row" ng-if="main.cases.length > 0">
+          <div class="col-lg-4">
+            <h5>Records: {{main.count}}</h5>
+          </div>
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-default" ng-click="main.back()" ng-if="main.page > 0"><i class="fa fa-backward" aria-hidden="true"></i></button></td>
+          </div>
+          <div class="col-lg-4">
+            <select class="form-control" ng-options="p as p for p in main.pages track by p" ng-model="main.page" ng-change="main.find()"></select>
+          </div>
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-default" ng-click="main.forward()" ng-if="main.page < main.totalPages"><i class="fa fa-forward" aria-hidden="true"></i></button></td>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="row" ng-repeat="process in main.process_list">
+        <div class="col-lg-12">
+          <h4>{{ process }}</h4>
+          <table class="table table-condensed table-hover">
+            <thead>
+              <tr >
+                <th ng-repeat="pKey in main.processes[process].keys"> {{ pKey }}</th>
+                <th />
+              </td/>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in main.processes[process].data">
+                <td ng-repeat="iKey in main.processes[process].keys"> {{ item[iKey] }}</td>
+                <td><button type="button" class="btn btn-default"  ng-click="main.viewObject(item)"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+                <!-- <td ng-if="process === 'executionerrors' && item['technicalerror'] && item['resolved']">here</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+</div>
+<!--
+    <div class="row" ng-if="main.casetracking.length > 0">
+      <div class="col-xs-12">
+        <h4>Case tracking</h4>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Changes</th>
+              <th>Started</th>
+              <th>Completed</th>
+              <th>Rules</th>
+              <th>Matched rules</th>
+              <th>IQ</th>
+              <th>ISO</th>
+              <th>stop</th>
+              <th>closeCase</th>
+              <th>sendToISO</th>
+              <th>sendToIQ</th>
+              <th>IQHold</th>
+              <th>doNothing</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="ct in main.casetracking">
+              <td>{{ct.id}}</td>
+              <td>
+                <p ng-repeat="ch in ct.changes">
+                  {{ch.attr}}: {{ch.previous}}  {{ch.current}}
+                </p>
+              </td>
+              <td>{{ct.beginprocessingat}}</td>
+              <td>{{ct.finishedprocessingat}}</td>
+              <td>{{ct.ruleexecutedat}}</td>
+              <td>{{ct.discriminationruleid}},{{ct.isoruleid}},{{ct.iqruleid}}</td>
+              <td>{{ct.iq}}</td>
+              <td>{{ct.iso}}</td>
+              <td>{{ct.stop}}</td>
+              <td>{{ct.closecase}}</td>
+              <td>{{ct.sendtoiso}}</td>
+              <td>{{ct.sendtoiq}}</td>
+              <td>{{ct.iqhold}}</td>
+              <td>{{ct.donothing}}</td>
+              <td><button type="button" class="btn btn-default""><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-if="main.isotracking.length > 0">
+      <div class="col-xs-12">
+        <h4>ISO tracking</h4>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>isoreceivedat</th>
+              <th>isoquerydcmat</th>
+              <th>isorequestreceivedat</th>
+              <th>isosentat</th>
+              <th>isocompletedat</th>
+              <th>requestid</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="it in main.isotracking">
+              <td>{{it.id}}</td>
+              <td>{{it.isoreceivedat}}</td>
+              <td>{{it.isoquerydcmat}}</td>
+              <td>{{it.isorequestreceivedat}}</td>
+              <td>{{it.isosentat}}</td>
+              <td>{{it.isocompletedat}}</td>
+              <td>{{it.requestid}}</td>
+              <td><button type="button" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-if="main.iqtracking.length > 0">
+      <div class="col-xs-12">
+        <h4>IQ tracking</h4>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>iqreceivedat</th>
+              <th>iqenqueuedat</th>
+              <th>iqdequeuedat</th>
+              <th>iqsentat</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="it in main.iqtracking">
+              <td>{{it.id}}</td>
+              <td>{{it.iqreceivedat}}</td>
+              <td>{{it.iqenqueuedat}}</td>
+              <td>{{it.iqdequeuedat}}</td>
+              <td>{{it.iqsentat}}</td>
+              <td><button type="button" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-if="main.executionerror.length > 0">
+      <div class="col-xs-12">
+        <h4>Execution error</h4>
+        <table class="table table-condensed table-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>failcount</th>
+              <th>technicalerror</th>
+              <th>step</th>
+              <th>resolved</th>
+              <th>integration</th>
+              <th>validation</th>
+              <th>message</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="ee in main.executionerror">
+              <td>{{ee.id}}</td>
+              <td>{{ee.failcount}}</td>
+              <td>{{ee.technicalerror}}</td>
+              <td>{{ee.step}}</td>
+              <td>{{ee.resolved}}</td>
+              <td>{{ee.integration}}</td>
+              <td>{{ee.validation}}</td>
+              <td>{{ee.message}}</td>
+              <td><button type="button" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+ -->
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">View details</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <pre>
+        {{ $ctrl.data | json }}
+      </pre>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+    </div>
+</script>
